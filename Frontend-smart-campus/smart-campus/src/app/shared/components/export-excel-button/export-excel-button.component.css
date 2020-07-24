@@ -1,0 +1,17 @@
+.export-excel-mini, .export-excel-raised {
+  margin: 10px;
+}
+.export-excel-mini {
+  display: none;
+}
+.export-excel-raised {
+  display: inline-block;
+}
+@media (max-width: 600px) {
+  .export-excel-raised {
+    display: none !important;
+  }
+  .export-excel-mini {
+    display: inline-block;
+  }
+}

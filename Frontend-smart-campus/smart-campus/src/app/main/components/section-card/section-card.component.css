@@ -1,0 +1,83 @@
+.card {
+  border: 0;
+  border-radius: 4px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+  margin-bottom: 30px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  word-wrap: break-word;
+  background-color: white;
+  background-clip: border-box;
+  transition: all 0.3s;
+  top: 0px;
+  width: 231px;
+}
+
+.card:hover {
+  cursor: pointer;
+  top: -10px;
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+.card-body {
+  flex: 1 1 auto;
+  padding: 1rem;
+}
+
+.p-10 {
+  padding: 10px;
+}
+
+.d-flex {
+  display: flex !important;
+}
+
+.card-text {
+ margin-right: 10px;
+}
+
+.vertical-margin-0 {
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
+.ml-auto, .mx-auto {
+  margin-left: auto!important;
+}
+
+.section-icon {
+  font-size: 36px;
+}
+
+.align-self-center {
+  align-self: center!important;
+}
+
+.text-muted {
+  color: #bcc3d3 !important;
+}
+
+.progress {
+  height: auto;
+  min-height: 6px;
+  display: flex;
+  overflow: hidden;
+  font-size: .75rem;
+  background-color: #e9ecef;
+  border-radius: .25rem;
+}
+
+.progress-bar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: #fff;
+  text-align: center;
+  white-space: nowrap;
+  background-color: #007bff;
+  transition: width .6s ease;
+}
+
+
+

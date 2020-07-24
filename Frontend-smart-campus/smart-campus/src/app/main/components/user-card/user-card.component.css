@@ -1,0 +1,55 @@
+.user-card-container {
+  top: 80px;
+  right: 5px;
+  background-color: white;
+  position: fixed;
+  height: 265px !important;
+  border-radius: 5px;
+  z-index: 999;
+}
+
+.user-img {
+  max-width: 85px;
+  max-height: 85px;
+  border-radius: 10px;
+}
+
+.user-name {
+  width: calc(100% - 1px);
+  font-size: 14px;
+  font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #20aee3;
+}
+
+.user-username {
+  font-size: 13px;
+  font-style: italic;
+  color: #bcc3d3;
+  margin-top: 3px;
+}
+
+.user-data-container {
+  width: calc(100% - 85px);
+}
+
+.user-card-option {
+  padding: 10px 20px;
+  color: #67757c;
+  font-size: 15px;
+  border-top: solid;
+  border-color: #d3d6e0;
+}
+
+.user-card-option:hover {
+  color: #20aee3;
+  background-color: #eee;
+  cursor: pointer;
+  font-style: italic;
+}
+
+.card-option-name {
+  padding-left: 15px;
+}

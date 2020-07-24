@@ -1,0 +1,6 @@
+{
+  "main": "uis.vertx.sample.process.SampleProcessVerticle",
+  "options" : {
+  	"isolationGroup": "uis-edge-5"
+  }
+}

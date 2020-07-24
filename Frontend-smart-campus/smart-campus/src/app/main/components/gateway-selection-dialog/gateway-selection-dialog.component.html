@@ -1,0 +1,19 @@
+<h1 mat-dialog-title style="color: #20aee3">Asignar gateway</h1>
+<div mat-dialog-content>
+  <div fxLayout="row" fxLayoutAlign="center">
+    <mat-form-field fxFlex="100%">
+      <mat-label>Gateway:</mat-label>
+      <mat-select [(value)]="selectedGateway">
+        <mat-option
+          *ngFor="let gateway of gateways; trackBy:identity"
+          [value]="gateway">
+          {{ gateway.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button mat-button class="cancel-button" [mat-dialog-close]="null" style="color: red" cdkFocusInitial>Cancelar</button>
+  <button mat-button [mat-dialog-close]="selectedGateway">Aceptar</button>
+</div>

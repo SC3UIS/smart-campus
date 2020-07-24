@@ -1,0 +1,20 @@
+<div fxLAyout="row" fxFlex="100%">
+  <div class="stat-card">
+    <canvas baseChart
+      [datasets]="lineChartDataP"
+      [labels]="lineChartLabelsP"
+      chartType="line"
+      [colors]="aliveChartsColors"
+      legend="true">
+    </canvas>
+  </div>
+
+  <div class="stat-card">
+      <canvas baseChart
+        [datasets]="lineChartDataT"
+        [labels]="lineChartLabelsT"
+        chartType="line"
+        legend="true">
+      </canvas>
+    </div>
+</div>

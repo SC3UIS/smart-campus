@@ -1,0 +1,5 @@
+.stat-card {
+    margin: 0 auto;
+    background-color: white;
+    width: calc(48% - 10px);
+}

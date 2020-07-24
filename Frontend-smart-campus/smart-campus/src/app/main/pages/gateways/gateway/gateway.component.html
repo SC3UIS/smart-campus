@@ -1,0 +1,77 @@
+<form class="gateway-form" #gatewayForm="ngForm">
+  <div
+    fxLayout="column"
+    scAnimated="fadeIn"
+    class="gateway-card default-shadow">
+    <div
+      fxLayout="row"
+      fxLayoutAlign="space-between center"
+      class="section-title-container">
+      <h2 class="section-title">
+        {{ gatewayId ? 'Gateway: ' + gateway?.name : 'Nuevo Gateway' }}
+      </h2>
+    </div>
+    <mat-form-field appearance="outline">
+      <mat-label>Nombre del gateway</mat-label>
+      <input matInput
+        name="name" #name="ngModel"
+        type="text" placeholder="Nombre del gateway"
+        required="true" [(ngModel)]="gateway.name"/>
+      <mat-error *ngIf="name.hasError('required')">
+        Nombre de gateway requerido.
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Descripción del gateway</mat-label>
+      <input matInput
+        name="description" #description="ngModel"
+        type="text" placeholder="Descripción de la gateway"
+        required="true" [(ngModel)]="gateway.description"/>
+      <mat-error *ngIf="name.hasError('required')">
+        Nombre de aplicación requerido.
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>Ip del gateway</mat-label>
+        <input matInput
+          name="ip" #description="ngModel"
+          type="text" placeholder="Ip del gateway"
+          required="true" [(ngModel)]="gateway.ip"/>
+        <mat-error *ngIf="name.hasError('required')">
+        Ip del gateway requerida.
+        </mat-error>
+      </mat-form-field>
+    <sc-property-table [properties]="gateway.properties" [propertyRules]="propertyRules"></sc-property-table>
+    <div
+      fxLayout="row"
+      fxLayoutAlign="end"
+      class="button-container">
+      <button mat-raised-button
+        fxFlex="20%" fxFlex.sm="40%" fxFlex.xs="100%"
+        color="primary"
+        type="submit"
+        [disabled]="appService.isFormInvalid(gatewayForm)"
+        (click)="saveOrUpdateGateway()">
+        {{ gatewayId ? 'Guardar' : 'Crear' }}
+      </button>
+    </div>
+  </div>
+</form>
+
+<div
+  *ngIf="gatewayId && !clone"
+  class="gateway-card default-shadow"
+  style="margin-top: 30px; color: #20aee3">
+  <h2>Procesos</h2>
+  <sc-processes-by-gateway
+    [processes]="gateway.processes"></sc-processes-by-gateway>
+</div>
+
+<div
+  *ngIf="gatewayId && !clone"
+  class="gateway-card default-shadow"
+  style="margin-top: 30px; color: #20aee3">
+  <sc-devices-by-gateway
+    [devices]="gateway.devices"
+  ></sc-devices-by-gateway>
+</div>

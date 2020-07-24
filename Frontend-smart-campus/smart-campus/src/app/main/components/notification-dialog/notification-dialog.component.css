@@ -1,0 +1,22 @@
+.dialog-content {
+    font-size: 14px;
+}
+
+.notification-table {
+    width: 100%
+}
+
+.notification-message {
+    overflow: hidden;
+    margin-top: 20px;
+}
+
+td.notification-attr-title {
+    text-align: right;
+    color: #03a9f4;
+}
+
+td.notification-attr-value {
+    padding: 5px;
+    padding-left: 10px;
+}

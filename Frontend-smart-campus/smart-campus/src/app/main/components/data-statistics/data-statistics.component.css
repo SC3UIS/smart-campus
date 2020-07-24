@@ -1,0 +1,17 @@
+.chart-container {
+  display: inline-flex;
+  width: 100%;
+}
+.chart-container > div {
+  width: calc(50%);
+}
+
+@media (max-width: 640px) {
+  .chart-container {
+    display: block !important;
+  }
+  .chart-container > div {
+    width: 100% !important;
+  }
+
+}

@@ -1,0 +1,42 @@
+<h1 mat-dialog-title style="color: #20aee3">Notificación</h1>
+<div mat-dialog-content fxFlexFill class="dialog-content">
+  <table class="notification-table">
+    <tr class="notification-row">
+      <td class="notification-attr-title">Gateway: </td>
+      <td class="notification-attr-value">{{ data.gatewayName }}</td>
+    </tr>
+    <tr class="notification-row">
+      <td class="notification-attr-title">Proceso: </td>
+      <td class="notification-attr-value">{{ data.processId ? data.processName : '-' }}</td>
+    </tr>
+    <tr class="notification-row">
+      <td class="notification-attr-title">Estado: </td>
+      <td class="notification-attr-value">
+        <i class="material-icons" [ngStyle]="{'color' : (data.alive ? 'green' : 'red')}">fiber_manual_record</i>
+      </td>
+    </tr>
+    <tr class="notification-row">
+      <td class="notification-attr-title">Leída: </td>
+      <td class="notification-attr-value">
+        <span>
+          <i *ngIf="data.read; else unread" class="material-icons" style="color: green">done_all</i>
+          <ng-template #unread>
+              <i #unread class="material-icons" style="color: #5c5c5cde">mail</i>
+          </ng-template>
+        </span>
+      </td>
+    </tr>
+    <tr class="notification-row">
+      <td class="notification-attr-title">Fecha: </td>
+      <td class="notification-attr-value">
+        <span>{{ data.timestamp | date: 'MMMM, d yyyy H:mm' }}</span>
+      </td>
+    </tr>
+  </table>
+  <div class="notification-message">
+    <span>{{ data.message }}</span>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close style="color: #20aee3" cdkFocusInitial>Cerrar</button>
+</div>

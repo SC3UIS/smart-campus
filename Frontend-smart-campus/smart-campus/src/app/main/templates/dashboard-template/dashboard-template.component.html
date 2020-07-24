@@ -1,0 +1,115 @@
+<header class="default-shadow">
+  <menu class="menu-container" [ngClass]="{'close': !openMenu }">
+    <div
+      class="menu-item"
+      *ngFor="let section of sections"
+      [ngStyle]="{'color': section.cardColor}"
+      (click)="navigateToSection(section.url)"
+      [routerLink]="section.url"
+      routerLinkActive='active'>
+      <div>
+        <mat-icon [ngStyle]="{'display': openMenu ? '': 'none', 'transition': 'all 1.5s'}">{{section.materialIconName}}</mat-icon>
+        <div>
+          <label>{{section.title}}</label>
+        </div>
+      </div>
+    </div>
+  </menu>
+  <nav class="navbar" fxLayout="row" fxFlexFill>
+    <div fxFlex="20">
+      <div class="menu-icon-container" (click)="openMenu = !openMenu">
+        <mat-icon>menu</mat-icon>
+      </div>
+    </div>
+    <div fxFlex="60" class="navbar-header" (click)="goHome()">
+      <a
+        class="navbar-brand"
+        fxLayout="row"
+        fxFlexFill
+        fxLayoutAlign="center center">
+        <div
+          scAnimated="fadeIn"
+          class="name-container"
+          fxHide.lt-sm>
+          <span class="brand-name">SMART</span>
+        </div>
+        <img
+          src="assets/icons/icon.png"
+          alt="Smart Campus Logo"
+          class="brand-logo"/>
+        <div
+          scAnimated="fadeIn"
+          class="name-container"
+          fxHide.lt-sm>
+          <span class="brand-name">CAMPUS</span>
+        </div>
+      </a>
+    </div>
+    <div class="navbar-collapse" fxFlex="20">
+      <ul class="navbar-nav" fxFlex fxLayout="row" fxLayoutAlign="end">
+        <li
+          class="nav-item" fxFlex="50px"
+          style="margin: auto;"
+          (click)="toggleNotificationsCard($event)">
+          <button mat-icon-button>
+            <mat-icon
+              [matBadge]="notificationService.unreadNotificationsCount"
+              matBadgeColor="warn"
+              [matBadgeHidden]="!notificationService.unreadNotificationsCount">
+              notifications
+            </mat-icon>
+          </button>
+        </li>
+        <li
+          class="nav-item user-item" fxFlex
+          style="padding-right: 10px; padding-left: 0px;"
+          (click)="toggleUserCard($event)">
+          <img
+            src="assets/imgs/user.png"
+            [alt]="userName"
+            class="user-img"
+            fxFlex="35px"
+            style="margin: auto"/>
+          <span class="user-name" fxHide.lt-md>{{ appService.user?.name }}</span>
+          <mat-icon style="margin: auto" fxFlex="30px">keyboard_arrow_down</mat-icon>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</header>
+<sc-notifications-card
+  scClickOutside
+  scAnimated="fadeInDownBig"
+  [ngStyle]="{
+    visibility: dashboardService.isNotificationsCardOpened ? 'visible' : 'hidden'
+  }"
+  (clickOutside)="closeNotificationsCard($event)">
+</sc-notifications-card>
+<sc-user-card
+  scClickOutside
+  scAnimated="fadeInDownBig"
+  [ngStyle]="{
+    visibility: dashboardService.isUserCardOpened ? 'visible' : 'hidden'
+  }"
+  (clickOutside)="closeUserCard($event)"
+  imageUrl="assets/imgs/user.png"
+  [username]="appService.user?.username"
+  [email]="appService.user?.email"
+  [name]="appService.user?.name">
+</sc-user-card>
+<div class="page-wrapper">
+  <div class="section-card-container" fxLayout="row wrap" fxLayoutAlign="space-evenly center" fxLayoutGap="20px">
+    <sc-section-card
+      *ngFor="let section of sections"
+      [title]="section.title"
+      [description]="section.description"
+      [url]="section.url"
+      [materialIconName]="section.materialIconName"
+      [cardColor]="section.cardColor"></sc-section-card>
+  </div>
+  <router-outlet></router-outlet>
+</div>
+<sc-notification-card
+  *ngIf="dashboardService.isNotificationShown"
+  [notification]="dashboardService.newNotification">
+</sc-notification-card>

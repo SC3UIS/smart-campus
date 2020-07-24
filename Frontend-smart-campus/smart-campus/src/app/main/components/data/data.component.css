@@ -1,0 +1,37 @@
+
+.search-btn-container {
+  display: grid;
+}
+.search-btn-container button{
+  margin: auto;
+}
+
+.data-payload {
+  overflow: hidden;
+  display: flex;
+  margin: 10px;
+}
+
+tr.data-detail-row {
+  height: 0;
+}
+
+tr.data-payload-row {
+  cursor: pointer;
+}
+
+tr.data-payload-row:not(.data-payload-expanded):hover {
+  background: #f5f5f5;
+}
+
+tr.data-payload-row:not(.data-payload-expanded):active {
+  background: #efefef;
+}
+
+.data-payload-row td {
+  border-bottom-width: 0;
+}
+
+.hide {
+  display: none;
+}

@@ -1,0 +1,21 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: data-microservice
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingParams:
+      updatePeriodSeconds: 10
+      intervalSeconds: 5
+      timeoutSeconds: 120
+  template:
+    metadata:
+      labels:
+        app: data-microservice
+        version: v1
+    spec:
+      containers:
+      - name: data-microservice
+        image: josedrojasa/data-service:

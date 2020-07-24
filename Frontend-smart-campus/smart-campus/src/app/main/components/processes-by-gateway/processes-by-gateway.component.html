@@ -1,0 +1,157 @@
+<div
+  [ngStyle]="{ display: gatewaysReady && processesReady ? 'block' : 'none' }"
+>
+  <div
+    fxLayout="row"
+    fxLayout.xs="column"
+    fxLayoutGap="20px"
+    class="filter-container"
+  >
+    <mat-form-field fxFlex="20%" fxFlex.sm="50%" fxFlex.xs="100%">
+      <mat-label>Filtrar por:</mat-label>
+      <mat-select
+        [(value)]="filterType"
+        (selectionChange)="onFilterTypeChange($event.value)"
+      >
+        <mat-option value="NONE">Ninguno</mat-option>
+        <mat-option value="ID">Id</mat-option>
+        <mat-option value="NAME">Nombre</mat-option>
+        <mat-option value="DESCRIPTION">Descripción</mat-option>
+        <mat-option value="IS_ALIVE">Estado</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field
+      fxFlex="30%"
+      fxFlex.sm="50%"
+      fxFlex.xs="100%"
+      *ngIf="
+        filterType !== 'NONE' &&
+        filterType !== 'IS_ALIVE' &&
+        filterType !== 'GATEWAY'
+      "
+    >
+      <input
+        matInput
+        type="text"
+        placeholder="Valor:"
+        (keyup)="applyFilter()"
+        [(ngModel)]="filterValue"
+      />
+      <button
+        mat-button
+        *ngIf="filterValue"
+        matSuffix
+        mat-icon-button
+        aria-label="Clear"
+        (click)="filterValue = ''; applyFilter()"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+    <mat-form-field
+      fxFlex="20%"
+      fxFlex.sm="50%"
+      fxFlex.xs="100%"
+      *ngIf="filterType === 'IS_ALIVE'"
+    >
+      <mat-label>Valor:</mat-label>
+      <mat-select [(value)]="filterValue" (selectionChange)="applyFilter()">
+        <mat-option value="true">Activo</mat-option>
+        <mat-option value="false">Inactivo</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div scAnimated="fadeIn" class="table-container">
+    <table
+      class="generic-table"
+      mat-table
+      [dataSource]="dataSource"
+      matSort
+      style="width: 100%"
+    >
+      <!-- Id Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
+        <td mat-cell *matCellDef="let row">
+          <div fxLayout="row">
+            <span class="mobile-label">Id:</span> {{ row.id }}
+          </div>
+        </td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
+        <td mat-cell *matCellDef="let row">
+          <div fxLayout="row">
+            <span class="mobile-label">Nombre:</span> {{ row.name }}
+          </div>
+        </td>
+      </ng-container>
+
+      <!-- Description Column -->
+      <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Descripción</th>
+        <td mat-cell *matCellDef="let row">
+          <div fxLayout="row">
+            <span class="mobile-label">Descripción:</span>
+            <span>{{ row.description }}</span>
+          </div>
+        </td>
+      </ng-container>
+
+      <!-- Alive Column -->
+      <ng-container matColumnDef="alive">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Estado</th>
+        <td mat-cell *matCellDef="let row">
+          <div fxLayout="row">
+            <span class="mobile-label">Estado:</span>
+            <span style="margin: auto;">
+              <i
+                class="material-icons"
+                [ngStyle]="{ color: row.alive ? 'green' : 'red' }"
+                >fiber_manual_record</i
+              >
+            </span>
+          </div>
+        </td>
+      </ng-container>
+
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef style="width: 85px;"></th>
+        <td
+          mat-cell
+          *matCellDef="let element; let i = index"
+          class="actions-cell"
+        >
+          <button
+            mat-icon-button
+            class="desktop-action"
+            style="color: red;"
+            (click)="onDeleteRecord(element.id, element.name)"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+          <button
+            class="mobile-action"
+            mat-stroked-button
+            mat-button
+            color="warn"
+            (click)="onDeleteRecord(element.id, element.name)"
+          >
+            <mat-icon>delete</mat-icon> Eliminar
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+
+    <mat-paginator
+      style="border-radius: 4px;"
+      [pageSizeOptions]="[5, 10, 20]"
+    ></mat-paginator>
+  </div>
+</div>

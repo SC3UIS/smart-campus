@@ -1,0 +1,22 @@
+{"properties": [
+  {
+    "name": "broker.protocol",
+    "type": "java.lang.String",
+    "description": "Protocol used to communicate with cloud gateway"
+  },
+  {
+    "name": "broker.domain",
+    "type": "java.lang.String",
+    "description": "Cloud Broker's Domain or ip"
+  },
+  {
+    "name": "broker.port",
+    "type": "java.lang.String",
+    "description": "Cloud Broker's port"
+  },
+  {
+    "name": "broker.client-id",
+    "type": "java.lang.String",
+    "description": "A description for 'broker.client-id'"
+  }
+]}

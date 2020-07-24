@@ -1,0 +1,62 @@
+<form class="process-form" #processForm="ngForm">
+    <div
+      fxLayout="column"
+      scAnimated="fadeIn"
+      class="process-card default-shadow">
+      <div
+        fxLayout="row"
+        fxLayoutAlign="space-between center"
+        class="section-title-container">
+        <h2 class="section-title">
+          {{ processId ? 'Proceso: ' + process?.name : 'Nuevo Proceso' }}
+        </h2>
+      </div>
+      <mat-form-field appearance="outline">
+        <mat-label>Nombre del proceso</mat-label>
+        <input matInput
+          name="name" #name="ngModel"
+          type="text" placeholder="Nombre del proceso"
+          required="true" [(ngModel)]="process.name"/>
+        <mat-error *ngIf="name.hasError('required')">
+          Nombre de proceso requerido.
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Descripción del proceso</mat-label>
+        <input matInput
+          name="description" #description="ngModel"
+          type="text" placeholder="Descripción del proceso"
+          required="true" [(ngModel)]="process.description"/>
+        <mat-error *ngIf="description.hasError('required')">
+          Nombre de proceso requerido.
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Gateway al que pertenece:</mat-label>
+        <mat-select matInput name="selectGateway" #selectGateway="ngModel" [(ngModel)]="process.gatewayId" required>
+          <mat-option
+            *ngFor="let item of gatewaysSelect; trackBy:identity"
+            [value]="item.id">
+            {{ item.name }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="selectGateway.hasError('required')">
+        Gateway al que pertenece requerido.
+        </mat-error>
+        </mat-form-field>
+      <sc-property-table [properties]="process.properties" [propertyRules]="propertyRules"></sc-property-table>
+      <div
+        fxLayout="row"
+        fxLayoutAlign="end"
+        class="button-container">
+        <button mat-raised-button
+          fxFlex="20%" fxFlex.sm="40%" fxFlex.xs="100%"
+          color="primary"
+          type="submit"
+          [disabled]="appService.isFormInvalid(processForm)"
+          (click)="saveOrUpdateProcess()">
+          {{ processId ? 'Guardar' : 'Crear' }}
+        </button>
+      </div>
+    </div>
+  </form>

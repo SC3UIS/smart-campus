@@ -1,0 +1,15 @@
+.classpath
+.project
+.settings
+target
+*/bin
+*/target
+*/.classpath
+*/.project
+*.springBeans
+/workspace
+wrapper
+/data-service/backend-tcpioteclipseorg1883
+*/mvnw
+*mvnw.cmd
+

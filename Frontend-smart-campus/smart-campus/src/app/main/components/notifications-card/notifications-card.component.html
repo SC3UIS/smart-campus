@@ -1,0 +1,68 @@
+<div
+  class="notifications-card-container default-shadow"
+  fxFlex="385px" fxFlex.lt-sm="100%" fxFlexFill>
+  <div *ngIf="notificationService.notifications && notificationService.notifications.length > 0; else noNotifications">
+    <div
+      class="notifications-list"
+      *ngIf="notificationService.unreadNotificationsCount > 0; else noUnreadNotifications">
+      <div scAnimated="fadeIn"
+        *ngFor="let notification of notificationService.notifications | callbackFilter:filterCallback | slice:0:10; trackBy:identity">
+        <div class="notification-container" (click)="openNotification(notification.id)">
+          <div
+            class="notification-img-container"
+            fxFlex="50px"
+            [ngStyle]="{ 'background-color': notification.processId ? '#ff5c6c' : '#007bff' }">
+            <mat-icon style="font-size: 34px; width: 34px; height: 34px; color: white; margin-top: 8px">
+              {{ notification.processId ? 'widgets' : 'business'}}
+            </mat-icon>
+          </div>
+          <div class="notification-text-container" fxFlex>
+            <h3 class="notification-title" *ngIf="notification.processId; else gatewayNotifTitle;">
+              Proceso: 
+              <span>{{ notification.processName }}</span>
+            </h3>
+            <ng-template #gatewayNotifTitle>
+                <h3 class="notification-title">
+                  Gateway: 
+                  <span>{{ notification.gatewayName }}</span>
+                </h3>
+            </ng-template>
+            <h5
+              class="notification-status"
+              [ngStyle]="{ 'background-color': notification.alive ? 'rgb(36, 210, 181)' : 'rgb(255, 92, 108)' }">
+              {{ notification.alive ? 'DISPONIBLE' : 'INACTIVO' }}
+            </h5>
+            <h5 class="notification-timestamp" *ngIf="isToday(notification.timestamp); else timestampOtherDay">
+              {{ notification.timestamp | date: 'H:mm' }}
+            </h5>
+            <ng-template #timestampOtherDay>
+              <h5 class="notification-timestamp">
+                {{ notification.timestamp | date: 'yyyy/MM/dd H:mm' }}
+              </h5>
+            </ng-template>
+          </div>
+          <div
+            class="notification-read-container"
+            fxFlex="40px">
+            <button mat-icon-button (click)="markAsRead(notification); $event.stopPropagation()">
+              <mat-icon>clear</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ng-template #noUnreadNotifications>
+      <div class="empty-card-container" style="height: 218px" fxLayout="col" fxLayoutAlign="center center">
+        <span>No hay notificaciones no leídas.</span>
+      </div>
+    </ng-template>
+    <div class="notification-container see-all-container" (click)="seeAll()">
+      Ver todas
+    </div>
+  </div>
+  <ng-template #noNotifications>
+    <div class="empty-card-container" style="height: 265px" fxLayout="col" fxLayoutAlign="center center">
+      <span>Actualmente usted no tiene notificaciones.</span>
+    </div>
+  </ng-template>
+</div>

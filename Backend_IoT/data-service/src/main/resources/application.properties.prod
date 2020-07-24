@@ -1,0 +1,20 @@
+spring.application.name            			= data
+server.port 								= 8091
+
+spring.data.mongodb.host           			= mongo-server.backend.svc
+spring.data.mongodb.uri                     = mongodb://iot:iot@mongo-server.backend.svc:27017/iot
+spring.data.mongodb.port           			= 27017
+spring.data.mongodb.database          		= iot
+spring.data.mongodb.user					= iot
+spring.data.mongodb.password				= iot
+spring.jackson.default-property-inclusion	= NON_NULL
+
+broker.protocol								= tcp
+broker.internal.domain                      = 172.30.241.142
+broker.internal.port						= 1883
+broker.external.domain                      = 172.30.241.142
+broker.external.port						= 1883
+broker.internal.client-id					= mqttInternal
+broker.external.client-id					= mqttExternal
+
+activemq.url                                 = tcp://activemq-service.backend.svc:61616

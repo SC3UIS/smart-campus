@@ -1,0 +1,43 @@
+<div *ngIf="chartReady" class="default-shadow" style="background-color: #ffffff; padding: 10px; margin: 10px;">
+  <mat-tab-group>
+    <mat-tab *ngFor="let chart of charts" [label]="chart.label">
+      <div class="chart-container">
+          <div>
+              <canvas baseChart
+              [datasets]="statistics.gatewayId[chart.property].barChartData"
+              [labels]="statistics.gatewayId[chart.property].barChartLabels"
+              [options]="barChartOptions"
+              [legend]="true"
+              [chartType]="barChartType">
+              </canvas>
+              <div style="text-align: center">
+                  <label>Gateway</label>
+              </div>
+            </div>
+          <div>
+            <canvas baseChart
+            [datasets]="statistics.processId[chart.property].barChartData"
+            [labels]="statistics.processId[chart.property].barChartLabels"
+            [options]="barChartOptions"
+            [legend]="true"
+            [chartType]="barChartType">
+            </canvas>
+            <div style="text-align: center">
+                <label>Procesos</label>
+            </div>
+          </div>
+      </div>
+      <div style="display: grid;">
+        <mat-button-toggle-group
+          style="margin: auto;"
+          name="fontStyle"
+          aria-label="Font Style"
+          (change)="changeChart($event)">
+          <mat-button-toggle [checked]="barChartType === 'bar'" value="bar"><mat-icon>bar_chart</mat-icon></mat-button-toggle>
+          <mat-button-toggle [checked]="barChartType === 'line'" value="line"><mat-icon>timeline</mat-icon></mat-button-toggle>
+          <mat-button-toggle [checked]="barChartType === 'pie'" value="pie"><mat-icon>pie_chart</mat-icon></mat-button-toggle>
+        </mat-button-toggle-group>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>

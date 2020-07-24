@@ -1,0 +1,88 @@
+.notifications-card-container {
+  top: 80px;
+  right: 5px;
+  background-color: white;
+  position: fixed;
+  height: 265px !important;
+  border-radius: 5px;
+  z-index: 999;
+}
+
+.notifications-list {
+  height: calc(268px - 36.8px);
+  overflow-y: scroll;
+}
+
+.notification-container {
+  padding: 10px;
+  margin: 5px;
+  background-color: #fafafa;
+}
+
+.notification-container:hover {
+  background-color: #eeeeee;
+  cursor: pointer;
+}
+
+.notification-title,
+.notification-status,
+.notification-timestamp {
+  margin: 5px 0;
+}
+
+.notification-img-container {
+  margin: auto;
+  text-align: center;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.notification-text-container {
+  padding-left: 25px;
+}
+
+.notification-title {
+  font-size: 15px;
+}
+
+.notification-title > span {
+  font-size: 15px;
+  font-weight: 100;
+}
+
+.notification-timestamp {
+  font-weight: 100;
+  font-size: 11px;
+  font-style: italic;
+}
+
+.notification-status {
+  font-weight: 100;
+  font-size: 11px;
+  width: 85px;
+  text-align: center;
+  color: white;
+  border-radius: 7px;
+  padding: 1px 0;
+}
+
+.see-all-container {
+  text-align: center;
+  font-size: 14px;
+  font-weight: bold;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 10px 0;
+  margin: 5px 0;
+  background-color: white;
+}
+
+.see-all-container:hover {
+  background-color: #eeeeee;
+  cursor: pointer;
+}
+
+.notification-read-container {
+  margin: auto;
+}

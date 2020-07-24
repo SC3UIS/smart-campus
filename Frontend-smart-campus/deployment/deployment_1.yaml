@@ -1,0 +1,15 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: front
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: front
+        version: v1
+    spec:
+      containers:
+      - name: front
+        image: josedrojasa/thesis-front:

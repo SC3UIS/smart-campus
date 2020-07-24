@@ -1,0 +1,36 @@
+<div
+  class="user-card-container default-shadow"
+  fxFlex="270px" fxFlex.lt-sm="100%" flexLayout="row" fxFlexFill>
+  <div flexLayout="col" style="padding: 15px;">
+    <div class="user-img-container" fxFlex="85px">
+      <img src="assets/imgs/user.png" [alt]="name" class="user-img"/>
+    </div>
+    <div fxLayoutAlign="start center" class="user-data-container">
+      <div flexLayout="row" style="overflow: hidden; width: 100%">
+        <div class="user-name">{{ name }}</div>
+        <div class="user-username">{{ username }}</div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="user-card-option"
+    (click)="onProfileClicked()"
+    flexLayout="col" fxLayoutAlign="start center">
+    <mat-icon class="card-option-icon">face</mat-icon>
+    <span class="card-option-name">Ver perfil</span>
+  </div>
+  <div
+    class="user-card-option"
+    (click)="onDeleteClicked()"
+    flexLayout="col" fxLayoutAlign="start center">
+    <mat-icon class="card-option-icon">delete</mat-icon>
+    <span class="card-option-name">Eliminar cuenta</span>
+  </div>
+  <div
+    class="user-card-option"
+    (click)="onLogoutClicked()"
+    flexLayout="col" fxLayoutAlign="start center">
+    <mat-icon class="card-option-icon">close</mat-icon>
+    <span class="card-option-name">Cerrar sesión</span>
+  </div>
+</div>

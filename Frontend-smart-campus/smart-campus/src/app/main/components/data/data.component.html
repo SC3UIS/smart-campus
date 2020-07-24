@@ -1,0 +1,165 @@
+<sc-administration-statistics></sc-administration-statistics>
+<sc-data-statistics></sc-data-statistics>
+<div>
+  <h2 class="section-title">Consulta de datos</h2>
+  <br>
+</div>
+<div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" class="filter-container" >
+  <mat-form-field fxFlex="20%" fxFlex.sm="50%" fxFlex.xs="100%">
+    <mat-label>Consultar por:</mat-label>
+    <mat-select [value]="filterType" (selectionChange)="onFilterTypeChange($event.value)">
+      <mat-option value="APPLICATION">Aplicación</mat-option>
+      <mat-option value="GATEWAY">Gateway</mat-option>
+      <mat-option value="PROCESS">Proceso</mat-option>
+      <mat-option value="TOPIC">Tópico</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <div [ngSwitch]="filterType" fxFlex="80%" fxFlex.sm="50%" fxFlex.xs="100%">
+    <mat-form-field fxFlex="100%" fxFlex.sm="100%" fxFlex.xs="100%" *ngSwitchCase="'APPLICATION'">
+      <mat-label>Aplicación:</mat-label>
+      <mat-select [(value)]="filterValue" >
+        <mat-option
+          *ngFor="let application of applications; trackBy:identity"
+          [value]="application.id">
+          {{application.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field fxFlex="100%" fxFlex.sm="100%" fxFlex.xs="100%" *ngSwitchCase="'GATEWAY'">
+      <mat-label>Gateway:</mat-label>
+      <mat-select [(value)]="filterValue" >
+        <mat-option
+          *ngFor="let gateway of gateways; trackBy:identity"
+          [value]="gateway.id">
+          {{gateway.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field fxFlex="100%" fxFlex.sm="100%" fxFlex.xs="100%" *ngSwitchCase="'PROCESS'">
+      <mat-label>Proceso:</mat-label>
+      <mat-select [(value)]="filterValue" >
+        <mat-option
+          *ngFor="let process of processes; trackBy:identity"
+          [value]="process.id">
+          {{process.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field fxFlex="100%" fxFlex.sm="100%" fxFlex.xs="100%" *ngSwitchCase="'TOPIC'">
+      <mat-label>Tópico:</mat-label>
+      <mat-select [(value)]="filterValue" >
+        <mat-option
+          *ngFor="let topic of topics; trackBy:topicIdentity"
+          [value]="topic">
+          {{topic}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div
+    fxLayout="row" fxLayout.xs="column" fxLayoutGap="20px"
+    fxFlex="100%" fxFlex.gt-md="40%"
+    *ngIf="filterType !== 'NONE'">
+    <mat-form-field fxFlex="50%" fxFlex.xs="100%">
+      <input matInput ngDefaultControl [matDatepicker]="startDatePicker" placeholder="Desde"
+        name="startDate" [value]="startDate" (dateChange)="startDateChanged($event)" (dateInput)="startDateChanged($event)">
+      <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+      <mat-datepicker #startDatePicker></mat-datepicker>
+      <button mat-button matSuffix mat-icon-button
+        *ngIf="startDate"
+        aria-label="Clear"
+        (click)="startDate = null; applyFilter()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+    <mat-form-field fxFlex="50%" fxFlex.xs="100%">
+      <input matInput ngDefaultControl [matDatepicker]="endDatePicker" placeholder="Hasta"
+        name="endDate" [value]="endDate" (dateChange)="endDateChanged($event)" (dateInput)="endDateChanged($event)">
+      <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+      <mat-datepicker #endDatePicker></mat-datepicker>
+      <button mat-button matSuffix mat-icon-button
+        *ngIf="endDate"
+        aria-label="Clear"
+        (click)="endDate = null; applyFilter()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+</div>
+<div class="search-btn-container" *ngIf="filterType !== 'NONE'">
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="getData()"
+    [disabled]="!filterType || !filterValue"
+  >
+    <mat-icon style="font-size: 20px">search</mat-icon>Consultar
+  </button>
+</div>
+<div scAnimated="fadeIn" class="table-container" [class.hide]="!searchAlreadyDone">
+  <div style="text-align: right;" *ngIf="dataSource.data.length > 0">
+    <sc-export-excel-button [json]="dataSource.data" filename="data"></sc-export-excel-button>
+  </div>
+  <table
+    class="generic-table"
+    mat-table multiTemplateDataRows matSort
+    [dataSource]="dataSource"
+    style="width: 100%">
+
+    <!-- GatewayName Column -->
+    <ng-container matColumnDef="gatewayName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Gateway</th>
+        <td mat-cell *matCellDef="let row">
+          <div fxLayout="row">
+            <span class="mobile-label">Gateway:</span> {{ row.gatewayName }}
+          </div>
+        </td>
+      </ng-container>
+
+    <!-- Process Column -->
+    <ng-container matColumnDef="processName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Proceso</th>
+      <td mat-cell *matCellDef="let row">
+        <div fxLayout="row">
+          <span class="mobile-label">Proceso:</span> {{ row.processName }}
+        </div>
+      </td>
+    </ng-container>
+
+    <!-- Timestamp Column -->
+    <ng-container matColumnDef="timestamp">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha</th>
+      <td mat-cell *matCellDef="let row">
+        <div fxLayout="row">
+          <span class="mobile-label">Fecha:</span>
+          <span>{{ row.timestamp | date: 'MMMM, d yyyy H:mm' }}</span>
+        </div>
+      </td>
+    </ng-container>
+
+    <!-- Message (Expanded Column) -->
+    <ng-container matColumnDef="payload">
+      <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
+        <div
+          class="data-payload"
+          [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+          {{ element.payload }}
+        </div>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row
+      class="data-payload-row"
+      [class.data-payload-expanded]="expandedElement === row"
+      *matRowDef="let row; columns: displayedColumns;"
+      (click)="toggleExpansion(row)">
+    </tr>
+    <tr mat-row *matRowDef="let row; columns: ['payload']" class="data-detail-row"></tr>
+  </table>
+
+  <mat-paginator
+    style="border-radius: 4px;"
+    [pageSizeOptions]="[5, 10, 20]">
+  </mat-paginator>
+</div>

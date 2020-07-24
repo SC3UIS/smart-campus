@@ -1,0 +1,62 @@
+<h1 mat-dialog-title style="color: #20aee3">
+  {{ data.isCreation ? "Crear" : "Editar" }} propiedad
+</h1>
+<div mat-dialog-content>
+  <form #propertyForm="ngForm">
+    <div fxLayout="column" scAnimated="fadeIn">
+      <mat-form-field fxFlex="100%" appearance="outline">
+        <mat-label>Tipo:</mat-label>
+        <mat-select [(value)]="data.newProperty.type" (selectionChange)="checkIfPropertyExist()" [disabled]="data.onlyValueModifiable">
+          <mat-option value="CONFIG">Configuración</mat-option>
+          <mat-option value="INFORMATIVE">Informativa</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field fxFlex="100%" appearance="outline">
+        <mat-label>Nombre</mat-label>
+        <input
+          matInput
+          name="name"
+          #name="ngModel"
+          type="text"
+          placeholder="Nombre"
+          required="true"
+          [disabled]="data.onlyValueModifiable"
+          (keyup)="checkIfPropertyExist()"
+          [(ngModel)]="data.newProperty.name"
+        />
+        <mat-error *ngIf="name.hasError('required')">
+          Nombre de propiedad requerido.
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field fxFlex="100%" appearance="outline">
+        <mat-label>Valor</mat-label>
+        <input
+          matInput
+          name="value"
+          #name="ngModel"
+          type="text"
+          placeholder="Valor"
+          required="true"
+          [(ngModel)]="data.newProperty.value"
+        />
+        <mat-error *ngIf="name.hasError('required')">
+          Nombre de propiedad requerido.
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <p *ngIf="duplicatedProperty" style="color: #ff5722">La propiedad diligenciada ya existe.</p>
+  </form>
+</div>
+<div mat-dialog-actions>
+    <button
+      mat-button
+      class="cancel-button"
+      [mat-dialog-close]="null"
+      style="color: red"
+      cdkFocusInitial
+    >
+      Cancelar
+    </button>
+    <button mat-button [disabled]="appService.isFormInvalid(propertyForm) || duplicatedProperty" (click)="saveOrUpdateProperty()" [mat-dialog-close]="data">Aceptar</button>
+  </div>
+

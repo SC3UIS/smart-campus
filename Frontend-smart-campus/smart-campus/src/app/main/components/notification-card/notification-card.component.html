@@ -1,0 +1,45 @@
+<div
+  scAnimated="fadeIn"
+  class="notification-container default-shadow"
+  (click)="openNotification(notification.id)">
+  <div
+    class="notification-img-container"
+    fxFlex="50px"
+    [ngStyle]="{ 'background-color': notification.processId ? '#ff5c6c' : '#007bff' }">
+    <mat-icon style="font-size: 34px; width: 34px; height: 34px; color: white; margin-top: 8px">
+      {{ notification.processId ? 'widgets' : 'business'}}
+    </mat-icon>
+  </div>
+  <div class="notification-text-container" fxFlex>
+    <h3 class="notification-title" *ngIf="notification.processId; else gatewayNotifTitle;">
+      Proceso: 
+      <span>{{ notification.processName }}</span>
+    </h3>
+    <ng-template #gatewayNotifTitle>
+        <h3 class="notification-title">
+          Gateway: 
+          <span>{{ notification.gatewayName }}</span>
+        </h3>
+    </ng-template>
+    <h5
+      class="notification-status"
+      [ngStyle]="{ 'background-color': notification.alive ? 'rgb(36, 210, 181)' : 'rgb(255, 92, 108)' }">
+      {{ notification.alive ? 'DISPONIBLE' : 'INACTIVO' }}
+    </h5>
+    <h5 class="notification-timestamp" *ngIf="isToday(notification.timestamp); else timestampOtherDay">
+      {{ notification.timestamp | date: 'H:mm' }}
+    </h5>
+    <ng-template #timestampOtherDay>
+      <h5 class="notification-timestamp">
+        {{ notification.timestamp | date: 'yyyy/MM/dd H:mm' }}
+      </h5>
+    </ng-template>
+  </div>
+  <div
+    class="notification-close-container"
+    fxFlex="40px">
+    <button mat-icon-button (click)="dismissNotification(); $event.stopPropagation()">
+      <mat-icon>clear</mat-icon>
+    </button>
+  </div>
+</div>

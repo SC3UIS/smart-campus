@@ -1,0 +1,15 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: jobs-microservice
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: jobs-microservice
+        version: v1
+    spec:
+      containers:
+      - name: jobs-microservice
+        image: josedrojasa/jobs-service:

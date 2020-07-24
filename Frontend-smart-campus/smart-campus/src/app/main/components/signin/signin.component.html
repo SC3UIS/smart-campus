@@ -1,0 +1,112 @@
+<form class="login-form" #signinForm="ngForm" (ngSubmit)="doSignin()">
+  <div scAnimated="fadeIn" class="border-container default-shadow">
+    <!-- Username field -->
+    <div fxLayout="row" fxLayoutAlign="center center">
+      <input 
+        class="login-input" name="newUsername" #newUsername="ngModel"
+        type="text" placeholder="Usuario"
+        required="true"
+        [(ngModel)]="signin.username"/>
+      <div *ngIf="appService.isModelInvalid(newUsername)">
+        <mat-icon
+          class="validation-icon"
+          *ngIf="newUsername.errors?.required"
+          matTooltip="Nombre de usuario requerido">
+          report_problem
+        </mat-icon>
+      </div>
+    </div>
+    <hr class="login-line">
+    <!-- Name field -->
+    <div fxLayout="row" fxLayoutAlign="center center">
+      <input 
+        class="login-input" name="newName" #newName="ngModel"
+        type="text" placeholder="Nombre"
+        required="true"
+        [(ngModel)]="signin.name"/>
+      <div *ngIf="appService.isModelInvalid(newName)">
+        <mat-icon
+          class="validation-icon"
+          *ngIf="newName.errors?.required"
+          matTooltip="Nombre requerido"
+          matTooltipClass="validation-tooltip">
+        report_problem
+        </mat-icon>
+      </div>
+    </div>
+    <hr class="login-line">
+    <!-- Email field -->
+    <div fxLayout="row" fxLayoutAlign="center center">
+      <input 
+        class="login-input" name="newEmail" #newEmail="ngModel"
+        type="email" placeholder="Email"
+        required="true" ngvemail
+        [(ngModel)]="signin.email"/>
+      <div  *ngIf="appService.isModelInvalid(newEmail)">
+        <mat-icon
+          class="validation-icon"
+          *ngIf="newEmail.errors?.required"
+          matTooltip="Email requerido"
+          matTooltipClass="validation-tooltip">
+          report_problem
+        </mat-icon>
+        <mat-icon
+          class="validation-icon"
+          *ngIf="newEmail.errors?.email"
+          matTooltip="Email invalido"
+          matTooltipClass="validation-tooltip">
+          report_problem
+        </mat-icon>
+      </div>
+    </div>
+    <hr class="login-line">
+    <!-- Password field -->
+    <div fxLayout="row" fxLayoutAlign="center center">
+      <input 
+        class="login-input" name="newPassword" #newPassword="ngModel"
+        type="password" placeholder="Contraseña"
+        required="true"
+        [(ngModel)]="signin.password"/>
+      <div  *ngIf="appService.isModelInvalid(newPassword)">
+        <mat-icon
+          class="validation-icon"
+          *ngIf="newPassword.errors?.required"
+          matTooltip="Contraseña requerida"
+          matTooltipClass="validation-tooltip">
+          report_problem
+        </mat-icon>
+      </div>
+    </div>
+    <hr class="login-line">
+    <!-- Validate Password field -->
+    <div fxLayout="row" fxLayoutAlign="center center">
+      <input 
+        class="login-input" name="newPasswordRepeat" #newPasswordRepeat="ngModel"
+        type="password" placeholder="Repetir Contraseña"
+        required="true" [equal]="signin.password"
+        [(ngModel)]="passwordCheck" />
+      <div *ngIf="appService.isModelInvalid(newPasswordRepeat)">
+        <mat-icon
+          class="validation-icon"
+          *ngIf="newPasswordRepeat.errors?.equal"
+          matTooltip="Las contraseñas no coinciden"
+          matTooltipClass="validation-tooltip">
+          report_problem
+        </mat-icon>
+      </div>
+    </div>
+  </div>
+  <div fxLayout="row" fxLayoutAlign="center center" class="default-shadow">
+    <button mat-flat-button scAnimated="fadeIn"
+      class="login-button box-shadow"
+      [disabled]="appService.isFormInvalid(signinForm)"
+      color="primary"
+      style="color: white">
+      Registrarse
+    </button>
+  </div>
+</form>
+<div fxLayout="row login-links" fxLayoutAlign="center center"  style="margin-top: 8px;" >
+  <a class="login-link" [routerLink]="['/login']">Iniciar sesión</a>
+  <a class="login-link" [routerLink]="['/password']">Olvidaste tu Contraseña</a>
+</div>

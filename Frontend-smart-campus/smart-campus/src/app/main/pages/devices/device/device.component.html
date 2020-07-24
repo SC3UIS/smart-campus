@@ -1,0 +1,72 @@
+<form class="device-form" #deviceForm="ngForm">
+    <div
+      fxLayout="column"
+      scAnimated="fadeIn"
+      class="device-card default-shadow">
+      <div
+        fxLayout="row"
+        fxLayoutAlign="space-between center"
+        class="section-title-container">
+        <h2 class="section-title">
+          {{ deviceId ? 'Dispositivo: ' + device?.name : 'Nuevo Dispositivo' }}
+        </h2>
+      </div>
+      <mat-form-field appearance="outline">
+        <mat-label>Nombre del dispositivo</mat-label>
+        <input matInput
+          name="name" #name="ngModel"
+          type="text" placeholder="Nombre del dispositivo"
+          required="true" [(ngModel)]="device.name"/>
+        <mat-error *ngIf="name.hasError('required')">
+          Nombre de dispositivo requerido.
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Descripción del dispositivo</mat-label>
+        <input matInput
+          name="description" #description="ngModel"
+          type="text" placeholder="Descripción del dispositivo"
+          required="true" [(ngModel)]="device.description"/>
+        <mat-error *ngIf="description.hasError('required')">
+          Nombre de dispositivo requerido.
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+          <mat-label>Tipo de dispositivo:</mat-label>
+          <mat-select matInput name="selectType" #selectType="ngModel" [(ngModel)]="device.type" required>
+            <mat-option [value]="'ACTUATOR'">Actuador</mat-option>
+            <mat-option [value]="'SENSOR'">Sensor</mat-option>
+          </mat-select>
+          <mat-error *ngIf="selectType.hasError('required')">
+          Tipo de dispositivo requerido.
+          </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Gateway al que pertenece:</mat-label>
+        <mat-select matInput name="selectGateway" #selectGateway="ngModel" [(ngModel)]="device.gatewayId" required>
+          <mat-option
+            *ngFor="let item of gatewaysSelect; trackBy:identity"
+            [value]="item.id">
+            {{ item.name }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="selectGateway.hasError('required')">
+        Gateway al que pertenece requerido.
+        </mat-error>
+      </mat-form-field>
+      <sc-property-table [properties]="device.properties"></sc-property-table>
+      <div
+        fxLayout="row"
+        fxLayoutAlign="end"
+        class="button-container">
+        <button mat-raised-button
+          fxFlex="20%" fxFlex.sm="40%" fxFlex.xs="100%"
+          color="primary"
+          type="submit"
+          [disabled]="appService.isFormInvalid(deviceForm)"
+          (click)="saveOrUpdateDevice()">
+          {{ deviceId ? 'Guardar' : 'Crear' }}
+        </button>
+      </div>
+    </div>
+  </form>

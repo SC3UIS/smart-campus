@@ -1,0 +1,52 @@
+<form class="user-form" #userForm="ngForm" (ngSubmit)="updateProfile()">
+  <div fxLayout="column" scAnimated="fadeIn" class="user-card default-shadow">
+    <div fxLayout="row" fxLayoutAlign="space-between center" class="section-title-container">
+      <h2 class="section-title">Perfil</h2>
+    </div>
+    <mat-form-field appearance="outline">
+      <mat-label>Nombre</mat-label>
+      <input matInput name="name" #name="ngModel" type="text" placeholder="Nombre" required="true"
+        [(ngModel)]="user.name" />
+      <mat-error *ngIf="name.hasError('required')">
+        Nombre requerido.
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Nombre de usuario</mat-label>
+      <input matInput name="username" #username="ngModel" type="text" placeholder="Nombre de usuario"
+        required="true" [(ngModel)]="user.username" readonly="true" />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Correo</mat-label>
+      <input matInput email name="email" #email="ngModel" type="email" placeholder="Correo"
+        required="true" [(ngModel)]="user.email" />
+      <mat-error *ngIf="email.hasError('required')">
+        Correo requerido.
+      </mat-error>
+      <mat-error *ngIf="email.hasError('email')">
+        Email invalido.
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Contraseña</mat-label>
+      <input matInput name="pass" #pass="ngModel" type="password" placeholder="Contraseña" [(ngModel)]="user.password" />
+      <mat-error *ngIf="pass.hasError('required')">
+        Contraseña requerida.
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Confirmar contraseña</mat-label>
+      <input matInput name="confirmPass" #confirmPass="ngModel" type="password" placeholder="Confirmar contraseña" [(ngModel)]="confirmPassword" [equal]="user.password"/>
+      <mat-error *ngIf="confirmPass.hasError('required')">
+        Contraseña requerida.
+      </mat-error>
+      <mat-error *ngIf="confirmPass.errors?.equal">
+        Las contraseñas no coinciden.
+      </mat-error>
+    </mat-form-field>
+    <div fxLayout="row" fxLayoutAlign="end" class="button-container">
+      <button mat-raised-button fxFlex="20%" fxFlex.sm="40%" fxFlex.xs="100%" color="primary" type="submit"
+        [disabled]="appService.isFormInvalid(userForm)">Guardar</button>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,258 @@
+/* You can add global styles to this file, and also import other style files */
+@import './theme.min.css';
+
+html, body { height: 100%; }
+body {
+    margin: 0;
+    font-family: "Montserrat", sans-serif;
+}
+
+.mat-app-background {
+    background-color: #fafafa;
+}
+
+sc-user-card {
+  position: relative;
+  z-index: 5;
+}
+
+sc-notifications-card {
+  position: relative;
+  z-index: 5;
+}
+
+sc-loader {
+    z-index: 9999;
+    position: absolute;
+    top: 0;
+}
+
+.default-shadow {
+    box-shadow: 0 3px 12px rgba(0,0,0,.05);
+    -webkit-box-shadow: 0 3px 12px rgba(0,0,0,.05);
+    -moz-box-shadow: 0 3px 12px rgba(0,0,0,.05);
+    border-color: rgba(120,130,140,.13);
+}
+
+.border-container {
+    border: 3.5px solid #ececec;
+    padding: 10px 6px;
+    border-radius: 6px;
+    background-color: white;
+}
+
+.box-shadow {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+	box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
+}
+
+input.login-input {
+    width: 100%;
+    padding: 5px;
+    border: none;
+    outline: none;
+}
+
+input.login-input.ng-invalid.ng-touched::placeholder {
+    color: red;
+}
+
+.login-button {
+    color: white;
+    width: 100%;
+    margin-top: 12px;
+    border-radius: 5px;
+}
+
+.login-button[disabled="false"]:hover {
+    background-color: rgb(0, 129, 189);
+    cursor: pointer;
+}
+
+.login-link {
+    cursor: pointer;
+    font-size: 0.75rem;
+    text-decoration: underline;
+    padding: 0 10px;
+}
+
+.login-link:hover {
+    color: rgb(0, 129, 189);
+}
+
+.validation-error {
+    font-size: 11px;
+    height: 100%;
+    padding-top: 10px;
+    font-style: italic;
+    font-weight: bold;
+    text-align: center;
+}
+
+.validation-icon {
+    font-size: 16px;
+    color: red;
+}
+
+.validation-icon:hover {
+    cursor: pointer;
+}
+
+.validation-tooltip {
+    font-size: 11px;
+}
+
+.snack-pane {
+    background-color: white;
+    color: black;
+}
+
+.section-title-container {
+    margin: 20px 0px 30px 0;
+}
+
+.section-title {
+    margin: 0;
+    color: #20aee3;
+}
+
+.section-subtitle {
+    margin: 0;
+    margin-top: 5px;
+    font-weight: 400;
+    font-size: 15px;
+}
+
+/*********** TABLE STYLES ****************/
+
+.generic-table .mat-header-cell {
+  border-bottom-width: 2px;
+}
+
+.generic-table .mat-row {
+  background-color: white !important;
+}
+
+.generic-table .mat-row:hover {
+  background-color: #f6f6f6;
+}
+
+.generic-table .actions-cell {
+  text-align: right;
+}
+
+.generic-table .filter-container {
+  margin-top: 40px;
+  margin-bottom: 15px;
+}
+
+.generic-table .mobile-label {
+  display: none;
+}
+
+.generic-table .mobile-action {
+  display: none;
+}
+
+.error-message {
+  border-bottom: 4px solid #ff5c6c !important;
+  background-color: #ffffff;
+  color: #323232;
+}
+.error-message .mat-button-wrapper {
+  color: #ff5c6c !important;
+}
+
+@media screen and (max-width: 599px) {
+  .generic-table .mobile-label {
+    min-width: 80px;
+    display: inline-block;
+    text-align: right;
+    margin-right: 8px;
+    color: #22aee3;
+  }
+
+  .generic-table .desktop-action {
+    display: none;
+  }
+
+  .generic-table .mobile-action {
+    display: inline-block;
+    font-size: 12px;
+    margin: 5px;
+  }
+
+  .generic-table .mat-header-row {
+    display: none;
+  }
+
+  .generic-table .mat-row {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 12px 12px;
+    display: flex;
+  }
+
+  .generic-table {
+    border-spacing: 0px 10px;
+    background-color: unset;
+  }
+
+  .generic-table tr {
+    margin-bottom: 20px;
+    border-radius: 4px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
+    -webkit-box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
+    -moz-box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
+    border-color: rgba(120, 130, 140, 0.13);
+    background-color: white;
+  }
+
+  .generic-table tr.mat-row {
+    height: unset;
+    padding-top: 20px;
+  }
+
+  .generic-table td.mat-cell {
+    border-bottom: none;
+    margin-bottom: 8px;
+  }
+
+  .generic-table td > mat-form-field {
+    padding-top: 0px;
+    padding-right: 0px;
+  }
+
+  .generic-table td.mat-cell:first-of-type {
+    padding-left: 0px;
+  }
+
+  .generic-table .actions-cell {
+    text-align: center;
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 0px !important;
+  }
+
+  .generic-table .edit-mobile-action {
+    margin-right: 15px;
+    color: rgb(36, 210, 181);
+  }
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  background-color: #f5f5f5;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #c7c7c7;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background-color: #f5f5f5;
+  width: 6px;
+}
